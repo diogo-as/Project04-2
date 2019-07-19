@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<header></header>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="">Materiais</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" href="{{ url_for('allcategoriasanditens') }}">Home <span class="sr-only">(current)</span></a>
+      <a class="nav-item nav-link" href="{{ url_for('categorias') }}">Categorias</a>
+      <a class="nav-item nav-link active" href="{{ url_for('allitenscategoria') }}">Itens</a>
+      <a class="nav-item nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+    </div>
+  </div>
+</nav>
+
+    {%- for message in get_flashed_messages() %}
+       {{ message }}
+    {%- endfor %}
+    <br>
+    <h4> Todos itens </h4>
+    <br>
+
+    <table class="table table-condensed table-hover">
+       <thead>
+          <tr>
+             <th scope="col">ID</th>
+             <th scope="col">Nome</th>
+             <th scope="col">Description</th>
+             <th></th>
+          </tr>
+       </thead>
+
+       <tbody>
+
+          {% for item in itens %}
+             <tr>
+                <td scope="row">{{ item.id }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.description }}</td>
+                <td><input type="button" class="btn btn-primary btn-sm" onclick="window.location.href='{{url_for('editoneitem', item_id=item.id)}}'" value="edit"></input> <input type="button" class="btn btn-secondary btn-sm" onclick="window.location.href='{{url_for('deleteitem', categoria_id=item.categoria_id, item_id=item.id)}}'" value="delete"></input></td>
+
+             </tr>
+          {% endfor %}
+       </tbody>
+    </table>
+</body>
+</html>
