@@ -9,6 +9,13 @@ from sqlalchemy import create_engine
 
 
 Base = declarative_base()
+class Usuario(Base):
+    __tablename__ = 'usuario'
+    google_id = Column(String(), primary_key=True)
+    name = Column(String())
+    email = Column(String())
+    profile_pic = Column(String())
+
 class Categoria(Base):
     __tablename__ = 'categoria'
     id = Column(Integer, primary_key=True)
@@ -30,7 +37,7 @@ class Item(Base):
     name = Column(String(), nullable=False, index=True)
     description = Column(String())
     categoria_id = Column(Integer, ForeignKey('categoria.id'), nullable=False)
-    
+
 
 
     @property
