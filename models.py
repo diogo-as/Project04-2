@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+# Extenal imports
 import sqlalchemy
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Table, Column, Integer, String, ForeignKey
@@ -9,6 +10,8 @@ from sqlalchemy import create_engine
 
 
 Base = declarative_base()
+
+
 class Usuario(Base):
     __tablename__ = 'usuario'
     google_id = Column(String(), primary_key=True)
@@ -16,19 +19,24 @@ class Usuario(Base):
     email = Column(String())
     profile_pic = Column(String())
 
+
 class Categoria(Base):
     __tablename__ = 'categoria'
     id = Column(Integer, primary_key=True)
     name = Column(String(), nullable=False, index=True)
-    itens = relationship("Item", backref="item", cascade="all, delete, delete-orphan")
+    itens = relationship(
+        "Item",
+        backref="item",
+        cascade="all, delete, delete-orphan"
+    )
 
     @property
     def serialize(self):
-       """Return object data in easily serializeable format"""
-       return {
-       	    'id': self.id,
+        """Return object data in easily serializeable format"""
+        return {
+            'id': self.id,
             'name': self.name
-       }
+        }
 
 
 class Item(Base):
@@ -38,18 +46,16 @@ class Item(Base):
     description = Column(String())
     categoria_id = Column(Integer, ForeignKey('categoria.id'), nullable=False)
 
-
-
     @property
     def serialize(self):
-       """Return object data in easily serializeable format"""
-       return {
-       	    'id': self.id,
+        # """Return object data in easily serializeable format"""
+        return {
+            'id': self.id,
             'name': self.name,
-            'description' : self.description
-       }
+            'description': self.description,
+            'category_id': self.categoria_id
+        }
 
 
-
-engine = create_engine('sqlite:///catalogo3.db')
+engine = create_engine('sqlite:///catalogo.db')
 Base.metadata.create_all(engine)

@@ -9,6 +9,26 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-categoria = Categoria(id=2, name="Abc")
-session.add(categoria)
-session.commit()
+categories =	{
+  1: "Cicling",
+  2: "Tennis",
+  3: "Skate",
+  4: "Basketball",
+  5: "Football",
+  6: "Climbing",
+  7: "Skate",
+  8: "Basketball",
+  9: "Golf",
+  10: "Handball"
+}
+
+
+#for i in categories.values():
+    #addGuest = Categoria(name=str(i))
+    #session.add(addGuest)
+    #session.commit()
+
+for i in range (20-30):
+    item = Item(name="item "+str(i), description="description "+str(i), categoria_id=int(i)-10)
+    session.add(item)
+    session.commit()
