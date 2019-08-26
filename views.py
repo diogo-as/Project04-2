@@ -43,8 +43,7 @@ import requests
 # Configuration Google oatuh secrets
 # GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
 # GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
-GOOGLE_CLIENT_ID = "573092642795-ggvdh9jddsssucqntnh972giidgnodk0.apps.googleusercontent.com"
-GOOGLE_CLIENT_SECRET = "5se_2jPB7_CQ_1EgPsIi4NGC"
+
 
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
