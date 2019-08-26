@@ -8,8 +8,15 @@ engine = create_engine('sqlite:///catalogo.db')
 Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
+# Clean database
+session.query(Item).delete()
+session.query(Categoria).delete()
+session.commit()
 
-categories =	{
+# To populate DB for example purposes
+
+
+categories = {
   1: "Cicling",
   2: "Tennis",
   3: "Skate",
@@ -22,13 +29,49 @@ categories =	{
   10: "Handball"
 }
 
-
-#for i in categories.values():
-    #addGuest = Categoria(name=str(i))
-    #session.add(addGuest)
-    #session.commit()
-
-for i in range (20-30):
-    item = Item(name="item "+str(i), description="description "+str(i), categoria_id=int(i)-10)
-    session.add(item)
+for i in categories.values():
+    addGuest = Categoria(name=str(i))
+    session.add(addGuest)
     session.commit()
+
+for i in range(1, 51):
+    if i <= 10:
+        item = Item(
+            name="item "+str(i),
+            description="description "+str(i),
+            categoria_id=int(i)
+        )
+        session.add(item)
+        session.commit()
+    if 10 < i <= 20:
+        item = Item(
+            name="item "+str(i),
+            description="description "+str(i),
+            categoria_id=int(i)-10
+        )
+        session.add(item)
+        session.commit()
+    if 20 < i <= 30:
+        item = Item(
+            name="item "+str(i),
+            description="description "+str(i),
+            categoria_id=int(i)-20
+        )
+        session.add(item)
+        session.commit()
+    if 30 < i <= 40:
+        item = Item(
+            name="item "+str(i),
+            description="description "+str(i),
+            categoria_id=int(i)-30
+        )
+        session.add(item)
+        session.commit()
+    if 40 < i <= 50:
+        item = Item(
+            name="item "+str(i),
+            description="description "+str(i),
+            categoria_id=int(i)-40
+        )
+        session.add(item)
+session.commit()

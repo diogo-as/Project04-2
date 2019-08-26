@@ -43,6 +43,8 @@ import requests
 # Configuration Google oatuh secrets
 # GOOGLE_CLIENT_ID = os.environ.get("GOOGLE_CLIENT_ID", None)
 # GOOGLE_CLIENT_SECRET = os.environ.get("GOOGLE_CLIENT_SECRET", None)
+GOOGLE_CLIENT_ID = "573092642795-ggvdh9jddsssucqntnh972giidgnodk0.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET = "5se_2jPB7_CQ_1EgPsIi4NGC"
 
 GOOGLE_DISCOVERY_URL = (
     "https://accounts.google.com/.well-known/openid-configuration"
@@ -56,7 +58,8 @@ Base.metadata.bind = engine
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
-# google login based on https://github.com/realpython/materials/tree/master/flask-google-login
+# google login based on
+# https://github.com/realpython/materials/tree/master/flask-google-login
 # User session management setup
 # https://flask-login.readthedocs.io/en/latest
 login_manager = LoginManager()
@@ -149,7 +152,9 @@ def callback():
     # Send user back to homepage
     return render_template(
         "index.html",
-        categorias=session.query(Categoria).order_by(sqlalchemy.asc(Categoria.id)).all(),
+        categorias=session.query
+        (Categoria).order_by
+        (sqlalchemy.asc(Categoria.id)).all(),
         itens=session.query(Item).order_by(sqlalchemy.asc(Item.id)).all(),
         loggeduser=loggedUser.name
         )
@@ -167,23 +172,30 @@ def get_google_provider_cfg():
 
 # Endpoint open to all visitors. Display all categories
 # and itens.
+
+
 @app.route('/', methods=['GET'])
 def allcategoriasanditens():
     # check if users is logged to display name on page
     if current_user.is_authenticated and request.method == "GET":
         return render_template(
             "index.html",
-            categorias=session.query(Categoria).order_by(sqlalchemy.asc(Categoria.id)).all(),
+            categorias=session.query
+            (Categoria).order_by
+            (sqlalchemy.asc(Categoria.id)).all(),
             itens=session.query(Item).order_by(sqlalchemy.asc(Item.id)).all(),
             loggeduser=current_user.name
         )
     else:
         return render_template(
             "index.html",
-            categorias=session.query(Categoria).order_by(sqlalchemy.asc(Categoria.id)).all(),
+            categorias=session.query
+            (Categoria).order_by
+            (sqlalchemy.asc(Categoria.id)).all(),
             itens=session.query(Item).order_by(sqlalchemy.asc(Item.id)).all(),
             loggeduser=''
         )
+
 
 # endpoint to list all categories in json
 @app.route('/categories')
@@ -191,11 +203,13 @@ def categoriesjson():
     category = session.query(Categoria).all()
     return jsonify(Categoria=[i.serialize for i in category])
 
+
 # endpoint to list all itens in json
 @app.route('/itens')
 def itensjson():
     itens = session.query(Item).all()
     return jsonify(Item=[i.serialize for i in itens])
+
 
 # endpoint show all categories
 @app.route('/catalogo/categorias', methods=['GET'])
@@ -204,11 +218,14 @@ def categorias():
     if current_user.is_authenticated and request.method == "GET":
         return render_template(
             "newindex.html",
-            categorias=session.query(Categoria).order_by(sqlalchemy.asc(Categoria.id)).all(),
+            categorias=session.query
+            (Categoria).order_by
+            (sqlalchemy.asc(Categoria.id)).all(),
             loggeduser=current_user.name
         )
     else:
         return render_template("login.html")
+
 
 # endpoint create category
 @app.route("/catalogo/categorias/newcategoria", methods=['GET', 'POST'])

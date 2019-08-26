@@ -29,7 +29,7 @@ class User(UserMixin):
     @staticmethod
     def get(user_id):
         engine = create_engine(
-            'sqlite:///catalogo3.db?check_same_thread=False'
+            'sqlite:///catalogo.db?check_same_thread=False'
         )
         Base.metadata.bind = engine
         DBSession = sessionmaker(bind=engine)
