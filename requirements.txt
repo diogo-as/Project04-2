@@ -7,7 +7,7 @@ enum34==1.1.6
 Flask==1.1.1
 Flask-Login==0.4.1
 Flask-SQLAlchemy==2.4.0
-httplib2==0.13.1
+httplib2==0.18.0
 idna==2.6
 ipaddress==1.0.17
 itsdangerous==1.1.0
